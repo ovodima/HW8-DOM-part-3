@@ -32,3 +32,7 @@
     background: rgb(105, 245, 168);
     color: white;
 }
+
+.none {
+    display: none;
+}

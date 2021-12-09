@@ -1,24 +1,13 @@
-// Task 1
-const rangeNum = (a, b) => {
-  if (a < b) {
-    console.log(a);
-    a++;
-    rangeNum(a, b);
-  } else if (a > b) {
-    console.log(a);
-    a--;
-    rangeNum(a, b);
-  } else {
-    console.log(a);
-  }
-};
-rangeNum(5, 10);
+const main = document.querySelector(".main");
+const time = document.querySelector(".time");
 
-//Task 2
-const button = document.querySelector(".format-button");
-const span = document.querySelectorAll("span");
+main.addEventListener("click", (e) => {
+  e.target.className === "time"
+    ? setInterval(() => shortFormat(time))
+    : setInterval(() => fullFormat(time));
+});
 
-const setClock = () => {
+const fullFormat = (out) => {
   let date = new Date();
 
   let hour = date.getHours();
@@ -29,18 +18,18 @@ const setClock = () => {
   if (minutes < 10) minutes = "0" + minutes;
   if (second < 10) second = "0" + second;
 
-  span[0].innerText = `${hour} :`;
-  span[1].innerText = `${minutes}:`;
-  span[2].innerText = `${second}`;
+  out.innerText = `${hour}:${minutes}:${second}`;
 };
+setInterval(() => fullFormat(time), 250);
 
-setInterval(() => setClock(), 250);
+const shortFormat = (out) => {
+  let date = new Date();
 
-button.addEventListener("click", (e) => {
-  span[2].classList.toggle("none");
+  let hour = date.getHours();
+  let minutes = date.getMinutes();
 
-  let target = e.target;
-  target.innerText === "Short"
-    ? (target.innerText = "Full")
-    : (target.innerText = "short");
-});
+  if (hour < 10) hour = "0" + hour;
+  if (minutes < 10) minutes = "0" + minutes;
+
+  out.innerText = `${hour}:${minutes}`;
+};
